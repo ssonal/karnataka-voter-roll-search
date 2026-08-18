@@ -13,9 +13,12 @@ Discover official sources autonomously. Do not ask the user to find or provide C
 
 1. Record the known facts without blocking on optional details:
    - full and familiar names, birth year or approximate age, relatives
-   - address at the relevant date
-   - election year or roll type
-   - known current AC, part, or polling station
+   - current address and the period it applies to
+   - current polling station, AC, and part, when known
+   - each former address and the approximate years it applied
+   - former polling station, AC, and part for each period, when known
+   - target election year or roll type
+   Keep current and former facts in separate timeline buckets. Never silently use a current polling station, AC, or part as evidence for a historical address.
 2. Classify the source before searching:
    - full electoral roll
    - ASDDO/ASD or other flagged subset
@@ -76,6 +79,7 @@ Request network approval when required. Do not download an entire AC folder mere
 - An ASDDO/ASD file is not the full electoral roll. Absence from it only means no match in that flagged subset.
 - A polling-station building can contain many rooms and parts. Search every matching filename.
 - Current AC numbers cannot be projected backward to 2002/2004 without historical boundary evidence. Search the historical address under the contemporaneous district/AC hierarchy and check adjacent plausible parts.
+- Treat current and former polling stations as separate leads tied to their stated time periods. If the user is unsure which station applies to which address, resolve the ambiguity from official records instead of combining them.
 - Filename ordering is lexicographic, not geographic; Part 231 and Parts 304–310 may belong to the same building.
 - Similar surnames, Christian names, ages, or nearby serials are leads—not proof of identity.
 
@@ -88,7 +92,7 @@ Use browser interaction only when shell metadata access fails because of authent
 Lead with the result, then provide:
 
 - source and roll type;
-- district/AC if established;
+- current and historical district/AC mappings separately, when established;
 - every part and room searched;
 - exact matches and clearly labelled near-matches;
 - links or local paths to source PDFs;

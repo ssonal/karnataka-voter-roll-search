@@ -20,13 +20,20 @@ Tell Codex what you know. You do not need to find any website or Drive link:
 ```text
 Use $karnataka-voter-roll-search.
 
-Polling station: Example Public School
 Names: Anita Sample and Joseph Sample
-Approximate ages: 60 and 58
-Old address: 12 Example Road, Bengaluru
+Birth years or approximate ages: 1964 and 1966
+
+Current address: 45 Current Road, Bengaluru
+Current polling station: Example Public School (if known)
+
+Former address: 12 Old Road, Bengaluru
+Years at former address: approximately 2000-2005
+Former polling station: unknown
+
+Records to check: current ASDDO and the 2002 voter roll
 ```
 
-Polling station, old address, relatives' names, birth years, constituency, or part numbers are helpful when available, but you do not need to know everything before starting.
+Current and former polling stations, relatives' names, birth years, constituency, or part numbers are helpful when available. Write `unknown` for anything you do not know.
 
 The skill will find the official CEO Karnataka sources itself, map the available details, enumerate every matching part and room, download only the relevant PDFs, search spelling variations, and clearly separate exact matches from weaker leads.
 
