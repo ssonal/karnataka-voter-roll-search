@@ -35,7 +35,7 @@ Records to check: current ASDDO and the 2002 voter roll
 
 Current and former polling stations, relatives' names, birth years, constituency, or part numbers are helpful when available. Write `unknown` for anything you do not know.
 
-The skill will find the official CEO Karnataka sources itself, map the available details, enumerate every matching part and room, download only the relevant PDFs, search spelling variations, and clearly separate exact matches from weaker leads.
+The skill will find the official CEO Karnataka sources itself, use web search, browser, or shell tools as appropriate, map the available details, enumerate every matching part and room, search spelling variations, and clearly separate exact matches from weaker leads.
 
 ## Important
 

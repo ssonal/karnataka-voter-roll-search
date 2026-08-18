@@ -5,7 +5,7 @@ description: Investigate Karnataka electoral-roll, SIR, ASDDO/ASD, and historica
 
 # Karnataka Voter Roll Search
 
-Use a shell-first, evidence-preserving workflow. Treat browser folder listings as discovery aids only: Google Drive virtualizes long folders and can hide later, non-contiguous parts.
+Use web search, browser interaction, and shell automation tactically. Choose the tool that best fits each step while preserving evidence and verifying completeness.
 
 Discover official sources autonomously. Do not ask the user to find or provide CEO Karnataka pages, Drive folders, district folders, AC folders, or PDF URLs when they are publicly discoverable. Ask for a link only after official-source discovery has genuinely failed or when the user refers to a private/non-public source.
 
@@ -23,8 +23,8 @@ Discover official sources autonomously. Do not ask the user to find or provide C
    - full electoral roll
    - ASDDO/ASD or other flagged subset
    - historical roll, especially pre-delimitation 2002/2004 material
-3. Start from the official CEO Karnataka entry points in [references/karnataka-electoral-sources.md](references/karnataka-electoral-sources.md). Resolve their current linked folders and files yourself; never make source discovery the user's job.
-4. Enumerate the complete Drive folder from the shell. Never infer completeness from the visible browser rows.
+3. Start from the official CEO Karnataka entry points in [references/karnataka-electoral-sources.md](references/karnataka-electoral-sources.md). Use web search or browser navigation to resolve their current linked folders and files; never make source discovery the user's job.
+4. Enumerate complete Drive folders with shell metadata or another complete-listing interface when practical. Browser navigation is useful, but never infer completeness from only the currently rendered rows of a virtualized folder.
 5. Match the polling-station name across the complete metadata. Include every room and part, even when part numbers are separated by dozens of unrelated files.
 6. Download only the relevant PDFs, extract all pages, and search all matched parts together.
 7. Search exact names, likely spelling variants, surname-only occurrences, relatives, and age ranges. Treat fuzzy hits as candidates, not identities.
@@ -83,9 +83,11 @@ Request network approval when required. Do not download an entire AC folder mere
 - Filename ordering is lexicographic, not geographic; Part 231 and Parts 304–310 may belong to the same building.
 - Similar surnames, Christian names, ages, or nearby serials are leads—not proof of identity.
 
-## Browser fallback
+## Tactical tool choice
 
-Use browser interaction only when shell metadata access fails because of authentication, CAPTCHA, or a non-public source. Even then, force or verify full pagination before concluding how many files exist. Return to scripted download and corpus search as soon as direct file URLs or IDs are available.
+- Use web search and browser interaction to discover current official pages, follow changing links, understand page hierarchy, handle authentication or CAPTCHA, inspect individual records, and visually verify PDF candidates.
+- Use shell scripts or complete-listing APIs to enumerate large folders, download a scoped set of PDFs, extract text, and search many parts reproducibly.
+- Mix these tools freely. Do not force shell use when browser or web search is more efficient, and do not trust a virtualized browser list as complete without forcing or independently verifying full pagination.
 
 ## Deliverable
 
