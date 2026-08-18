@@ -41,7 +41,7 @@ python3 scripts/investigate_rolls.py \
 
 The script:
 
-- calls `gdown --folder --json` (or `uvx gdown`) to enumerate the full folder without downloading it;
+- calls `gdown>=6.1.0 --folder --json` (pinned automatically when using `uvx`) to enumerate the full folder without downloading it;
 - filters filenames by all normalized station-name tokens;
 - identifies AC and part numbers from filenames where possible;
 - downloads only matched PDFs;

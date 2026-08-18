@@ -1,8 +1,10 @@
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 
-from scripts.investigate_rolls import classify, search_text
+from scripts.investigate_rolls import classify, gdown_base, search_text
 
 
 class NameMatchingTests(unittest.TestCase):
@@ -31,6 +33,28 @@ class NameMatchingTests(unittest.TestCase):
             path = Path(directory) / "part.txt"
             path.write_text("IYER\n")
             self.assertEqual(search_text("Aparna Iyer", path), [])
+
+
+class GdownInterfaceTests(unittest.TestCase):
+    @patch("scripts.investigate_rolls.shutil.which")
+    def test_uvx_pins_json_capable_gdown(self, which):
+        which.side_effect = lambda command: "/usr/bin/uvx" if command == "uvx" else None
+        self.assertEqual(gdown_base(), ["uvx", "--from", "gdown>=6.1.0", "gdown"])
+
+    @patch("scripts.investigate_rolls.subprocess.run")
+    @patch("scripts.investigate_rolls.shutil.which")
+    def test_standalone_gdown_must_expose_json(self, which, run):
+        which.side_effect = lambda command: "/usr/bin/gdown" if command == "gdown" else None
+        run.return_value = SimpleNamespace(returncode=0, stdout="--folder", stderr="")
+        with self.assertRaisesRegex(SystemExit, "gdown>=6.1.0"):
+            gdown_base()
+
+    @patch("scripts.investigate_rolls.subprocess.run")
+    @patch("scripts.investigate_rolls.shutil.which")
+    def test_standalone_gdown_with_json_is_supported(self, which, run):
+        which.side_effect = lambda command: "/usr/bin/gdown" if command == "gdown" else None
+        run.return_value = SimpleNamespace(returncode=0, stdout="--folder --json", stderr="")
+        self.assertEqual(gdown_base(), ["gdown"])
 
 
 if __name__ == "__main__":

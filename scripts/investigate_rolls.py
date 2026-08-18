@@ -44,11 +44,16 @@ def token_similar(query: str, candidate: str) -> bool:
 
 
 def gdown_base() -> list[str]:
-    if shutil.which("gdown"):
-        return ["gdown"]
     if shutil.which("uvx"):
-        return ["uvx", "gdown"]
-    raise SystemExit("Need either gdown or uvx in PATH to enumerate/download Google Drive files.")
+        # Folder metadata mode was introduced in gdown 6.1.0. Pin the minimum
+        # version so uvx cannot resolve an older CLI without --json support.
+        return ["uvx", "--from", "gdown>=6.1.0", "gdown"]
+    if shutil.which("gdown"):
+        help_result = subprocess.run(["gdown", "--help"], capture_output=True, text=True)
+        if help_result.returncode == 0 and "--json" in help_result.stdout:
+            return ["gdown"]
+        raise SystemExit("Installed gdown does not support --json; install gdown>=6.1.0.")
+    raise SystemExit("Need uvx or gdown>=6.1.0 in PATH to enumerate Google Drive folders.")
 
 
 def run(command: list[str], *, capture: bool = False) -> subprocess.CompletedProcess[str]:

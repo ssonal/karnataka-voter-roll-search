@@ -34,7 +34,7 @@ python3 scripts/investigate_rolls.py \
   --output './roll-search'
 ```
 
-Requirements: Python 3.10+, `gdown` or `uvx`, and Poppler's `pdftotext`.
+Requirements: Python 3.10+, `uvx` or `gdown>=6.1.0`, and Poppler's `pdftotext`.
 
 Run tests with:
 
