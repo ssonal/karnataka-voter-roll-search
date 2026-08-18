@@ -1,0 +1,4 @@
+interface:
+  display_name: "Karnataka Voter Roll Search"
+  short_description: "Find names across every booth part and room"
+  default_prompt: "Use $karnataka-voter-roll-search to locate a polling station, enumerate every part and room, and check these voter names."
