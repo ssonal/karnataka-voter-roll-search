@@ -120,13 +120,22 @@ def classify(query: str, text: str) -> str | None:
     line_tokens = normalized(text).split()
     if all(token in person_tokens for token in query_tokens):
         return "exact"
-    surname = query_tokens[-1]
+    # Electoral rolls often put an initial after the family name (for example,
+    # "VICTORIA BRUNDA A"). Never use a one- or two-character initial as the
+    # fuzzy surname anchor; it would match nearly every row in the corpus.
+    surname_index = next(
+        (index for index in range(len(query_tokens) - 1, -1, -1) if len(query_tokens[index]) >= 3),
+        len(query_tokens) - 1,
+    )
+    surname = query_tokens[surname_index]
     surname_hit = any(token_similar(surname, token) for token in person_tokens)
-    given = query_tokens[:-1]
+    given = [token for index, token in enumerate(query_tokens) if index != surname_index and len(token) >= 3]
     given_hit = any(token_similar(q, token) for q in given for token in person_tokens)
     if surname_hit and (given_hit or len(query_tokens) == 1):
         return "likely"
-    if any(token_similar(surname, token) for token in line_tokens):
+    # Keep surname-only results exact. Fuzzy surname matching without a given
+    # name produces too many unrelated candidates for common Indian names.
+    if surname in line_tokens:
         return "surname-only"
     return None
 
@@ -135,9 +144,12 @@ def search_text(query: str, text_path: Path) -> list[Candidate]:
     results: list[Candidate] = []
     page = 1
     for line_no, raw in enumerate(text_path.read_text(errors="replace").splitlines(keepends=True), 1):
-        strength = classify(query, raw)
-        if strength:
-            results.append(Candidate(query, strength, text_path.with_suffix(".pdf").name, page, line_no, raw.strip()))
+        # Only emit complete electoral rows. Wrapped continuation lines can
+        # contain a surname alone and otherwise look like a candidate.
+        if EPIC_RE.search(raw):
+            strength = classify(query, raw)
+            if strength:
+                results.append(Candidate(query, strength, text_path.with_suffix(".pdf").name, page, line_no, raw.strip()))
         page += raw.count("\f")
     return results
 
@@ -257,6 +269,17 @@ def main() -> int:
         for query in args.names:
             candidates.extend(search_text(query, text_path))
     candidates = unique_candidates(candidates)
+    query_order = {query: index for index, query in enumerate(args.names)}
+    strength_order = {"exact": 0, "likely": 1, "surname-only": 2}
+    candidates.sort(
+        key=lambda candidate: (
+            query_order[candidate.query],
+            strength_order[candidate.strength],
+            candidate.pdf,
+            candidate.page,
+            candidate.line,
+        )
+    )
     (args.output / "candidates.json").write_text(
         json.dumps([asdict(candidate) for candidate in candidates], indent=2, ensure_ascii=False) + "\n"
     )

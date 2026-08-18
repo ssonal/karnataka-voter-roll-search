@@ -95,8 +95,15 @@ The workflow searches PDFs locally and downloads only relevant polling-station f
 SKILL.md                                Codex workflow and guardrails
 agents/openai.yaml                      Codex UI metadata
 scripts/investigate_rolls.py            Deterministic folder/PDF/name-search CLI
+tests/test_name_matching.py             Name-matching regression tests
 references/karnataka-electoral-sources.md  Source and interpretation notes
 LICENSE                                 MIT license
+```
+
+Run the tests with:
+
+```bash
+python3 -m unittest discover -s tests -v
 ```
 
 ## License
