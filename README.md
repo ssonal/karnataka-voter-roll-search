@@ -2,52 +2,39 @@
 
 A Codex skill for finding people across Karnataka voter-roll, SIR, ASDDO/ASD, and historical-roll PDFs.
 
-It uses the shell to:
+## Install - no Terminal needed
 
-- enumerate complete Google Drive folders;
-- find every part and room for a polling station;
-- download and search only the relevant PDFs;
-- report exact, fuzzy, and surname-only candidates separately.
-
-## Install
-
-```bash
-git clone https://github.com/ssonal/karnataka-voter-roll-search.git \
-  ~/.codex/skills/karnataka-voter-roll-search
-```
-
-Then ask Codex:
+Open Codex and paste this:
 
 ```text
-Use $karnataka-voter-roll-search to find every part for Example Public School
-in this Drive folder and check Anita Sample across all matching PDFs.
+Use $skill-installer to install the skill from
+https://github.com/ssonal/karnataka-voter-roll-search
 ```
 
-## Run the CLI directly
+Codex will install it for you. The skill will be available in your next message.
 
-```bash
-python3 scripts/investigate_rolls.py \
-  --folder-url 'GOOGLE_DRIVE_FOLDER_URL' \
-  --station 'Example Public School' \
-  --name 'Anita Sample' \
-  --source-type ASDDO \
-  --output './roll-search'
+## Use it
+
+Paste the official voter-list or Google Drive link and say what you know:
+
+```text
+Use $karnataka-voter-roll-search.
+
+Polling station: Example Public School
+Names: Anita Sample and Joseph Sample
+Approximate ages: 60 and 58
+Link: GOOGLE_DRIVE_OR_CEO_KARNATAKA_URL
 ```
 
-Requirements: Python 3.10+, `uvx` or `gdown>=6.1.0`, and Poppler's `pdftotext`.
+Old address, relatives' names, birth years, constituency, or part numbers are helpful when available, but you do not need to know everything before starting.
 
-Run tests with:
-
-```bash
-python3 -m unittest discover -s tests -v
-```
+The skill will enumerate every matching part and room, download only the relevant PDFs, search spelling variations, and clearly separate exact matches from weaker leads.
 
 ## Important
 
 - ASDDO/ASD files are flagged subsets, not complete electoral rolls.
 - A missing or poorly extracted name is not proof that a person is unregistered.
-- Do not commit voter PDFs, extracted records, reports, or personal details.
-
-See [SKILL.md](SKILL.md) for the full workflow and guardrails.
+- Codex may ask permission before accessing or downloading public files.
+- Do not publish voter PDFs, extracted records, reports, or personal details.
 
 MIT licensed. See [LICENSE](LICENSE).
