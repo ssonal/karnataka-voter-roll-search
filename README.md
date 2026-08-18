@@ -15,7 +15,7 @@ Codex will install it for you. The skill will be available in your next message.
 
 ## Use it
 
-Paste the official voter-list or Google Drive link and say what you know:
+Tell Codex what you know. You do not need to find any website or Drive link:
 
 ```text
 Use $karnataka-voter-roll-search.
@@ -23,12 +23,12 @@ Use $karnataka-voter-roll-search.
 Polling station: Example Public School
 Names: Anita Sample and Joseph Sample
 Approximate ages: 60 and 58
-Link: GOOGLE_DRIVE_OR_CEO_KARNATAKA_URL
+Old address: 12 Example Road, Bengaluru
 ```
 
-Old address, relatives' names, birth years, constituency, or part numbers are helpful when available, but you do not need to know everything before starting.
+Polling station, old address, relatives' names, birth years, constituency, or part numbers are helpful when available, but you do not need to know everything before starting.
 
-The skill will enumerate every matching part and room, download only the relevant PDFs, search spelling variations, and clearly separate exact matches from weaker leads.
+The skill will find the official CEO Karnataka sources itself, map the available details, enumerate every matching part and room, download only the relevant PDFs, search spelling variations, and clearly separate exact matches from weaker leads.
 
 ## Important
 

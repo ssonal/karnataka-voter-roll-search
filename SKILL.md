@@ -7,18 +7,20 @@ description: Investigate Karnataka electoral-roll, SIR, ASDDO/ASD, and historica
 
 Use a shell-first, evidence-preserving workflow. Treat browser folder listings as discovery aids only: Google Drive virtualizes long folders and can hide later, non-contiguous parts.
 
+Discover official sources autonomously. Do not ask the user to find or provide CEO Karnataka pages, Drive folders, district folders, AC folders, or PDF URLs when they are publicly discoverable. Ask for a link only after official-source discovery has genuinely failed or when the user refers to a private/non-public source.
+
 ## Default workflow
 
 1. Record the known facts without blocking on optional details:
    - full and familiar names, birth year or approximate age, relatives
    - address at the relevant date
    - election year or roll type
-   - known current AC, part, polling station, or Drive folder
+   - known current AC, part, or polling station
 2. Classify the source before searching:
    - full electoral roll
    - ASDDO/ASD or other flagged subset
    - historical roll, especially pre-delimitation 2002/2004 material
-3. Prefer official CEO Karnataka entry points and their linked files. Read [references/karnataka-electoral-sources.md](references/karnataka-electoral-sources.md) when choosing sources or interpreting results.
+3. Start from the official CEO Karnataka entry points in [references/karnataka-electoral-sources.md](references/karnataka-electoral-sources.md). Resolve their current linked folders and files yourself; never make source discovery the user's job.
 4. Enumerate the complete Drive folder from the shell. Never infer completeness from the visible browser rows.
 5. Match the polling-station name across the complete metadata. Include every room and part, even when part numbers are separated by dozens of unrelated files.
 6. Download only the relevant PDFs, extract all pages, and search all matched parts together.
@@ -26,9 +28,9 @@ Use a shell-first, evidence-preserving workflow. Treat browser folder listings a
 8. Render or open pages containing plausible candidates to verify the extracted text visually.
 9. Report the searched scope, exact part/room mapping, matches and near-matches, and the source-type caveat.
 
-## Run the bundled investigator
+## Internal automation
 
-Use the deterministic CLI for public Google Drive folders containing text-readable PDFs:
+After discovering the relevant public Drive folder, run the bundled investigator internally. Do not instruct the user to run it:
 
 ```bash
 python3 scripts/investigate_rolls.py \
@@ -48,7 +50,7 @@ The script:
 - uses `pdftotext -layout` on every matched PDF;
 - generates `manifest.json` and `report.md` with exact, likely, and surname-only candidates.
 
-If PDFs are already local, bypass Drive:
+If the user already supplied PDFs, bypass Drive internally:
 
 ```bash
 python3 scripts/investigate_rolls.py \
